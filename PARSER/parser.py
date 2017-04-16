@@ -6,6 +6,9 @@ Ceci est un script temporaire.
 """
 import numpy as np
 import pandas as pd
+import json
+from pprint import pprint
+
 
 #Liste des paramètres 
 utilite = 0 #fonction par defaut (à définir)
