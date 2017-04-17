@@ -4,7 +4,7 @@
 Evaluate ! is a tool to evaluate different alternatives, by making a ranking from the best one to the worst.
 Based on two documents to be attached : the first for the desired configuration (different weightings of the criteria) and the second for the data, you can apply one of the three evaluation methods available.
 
-The client side is developed with jQuery and Bootstrap, and the back-end with Python through Flask framework.
+The client side is developed with jQuery and Bootstrap, and the server side with Python through Flask framework.
 
 ## Motivation
 
@@ -33,9 +33,8 @@ The team of students behind this project is exclusively composed of developers:
 - Hamaza *BOUKRIM* - Hamza.Boukrim@dauphine.eu
 - Jasmin *DIANTOUBA* - Jasmin.Diantouba@dauphine.eu
 - Oussama *DIBT* - Oussama.Dibt@dauphine.eu
-- [Mohammed RIHANI][] - Mohammed.Rihani@dauphine.eu
+- Mohammed *RIHANI* - Mohammed.Rihani@dauphine.eu
 
 
 
 [Paris-Dauphine]: http://www.dauphine.fr/fr/index.html
-[Mohammed RIHANI]: http://mrihani.vvv.enseirb-matmeca.fr
