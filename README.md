@@ -1,6 +1,7 @@
 # LS-Project / Evaluate !
 
 ## Synopsis
+
 Evaluate ! is a tool to evaluate different alternatives, by making a ranking from the best one to the worst.
 Based on two documents to be attached : the first for the desired configuration (different weightings of the criteria) and the second for the data, you can apply one of the three evaluation methods available.
 
@@ -21,7 +22,7 @@ Then run the following :
 	cd ProjetLS/FlaskApp/
 	python app.py
   
-You can see the result in your browser by going to your localhost on port 5000 : `localhost:5000`
+You can access the tool by going on your browser, localhost on port 5000 : `localhost:5000`
 
 
 ## License
