@@ -37,7 +37,7 @@ This project is licensed under the GNU LGPL, Version 3.0. See LICENSE for full l
 
 ### Supervisor
 
-- Brice *MAYAG* Brice.Mayag@dauphine.fr
+- Brice *MAYAG* - Brice.Mayag@dauphine.fr
 
 
 
