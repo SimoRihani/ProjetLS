@@ -8,14 +8,15 @@ The client side is developed with jQuery and Bootstrap, and the server side with
 
 ## Motivation
 
-This project is part of the *M2 Miage ID* training at [Paris-Dauphine][]* University.  
+This project is part of the *M2 Miage ID* training at [Paris-Dauphine][] University.  
 
 
 ## Installation
 
 Make sure that you have **Python** and **Flask** installed on your system. If not, please download them beforehand.  
+
 Clone ProjetLS with `git clone https://github.com/SimoRihani/ProjetLS.git`
-Run the following :
+Then run the following :
 
 	cd ProjetLS/FlaskApp/
 	python app.py
