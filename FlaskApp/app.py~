@@ -34,7 +34,7 @@ def signUpUser():
 @app.route('/indexAct', methods=['GET', 'POST'])
 def indexAct():
     # return request.form['header'];
-    return request.form['header'];
+    return request.form;
 
 
     # user =  request.form['username'];

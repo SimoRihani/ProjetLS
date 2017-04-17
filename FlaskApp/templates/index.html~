@@ -124,7 +124,7 @@ $("#submitbutton").on("click", function(){
               url: '/indexAct',
               // data: e.options[e.selectedIndex].text,
               // data: $('#header').serialize(),
-              data: $('#header').serialize(),
+              data: $('pre').serialize(),
               //data: mydata,
               type: 'POST',
               success: function(response) {
