@@ -35,9 +35,9 @@ This project is licensed under the GNU LGPL, Version 3.0. See LICENSE for full l
 - Oussama *DIBT* - Oussama.Dibt@dauphine.eu
 - Mohammed *RIHANI* - Mohammed.Rihani@dauphine.eu
 
-###Supervisor
+### Supervisor
 
-- Brice *MAYAG* brice.mayag@dauphine.fr
+- Brice *MAYAG* Brice.Mayag@dauphine.fr
 
 
 
