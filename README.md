@@ -33,7 +33,7 @@ This project is licensed under the GNU LGPL, Version 3.0. See LICENSE for full l
 
 ### Students
 
-- Hamaza *BOUKRIM* - Hamza.Boukrim@dauphine.eu
+- Hamza *BOUKRIM* - Hamza.Boukrim@dauphine.eu
 - Jasmin *DIANTOUBA* - Jasmin.Diantouba@dauphine.eu
 - Oussama *DIBT* - Oussama.Dibt@dauphine.eu
 - Mohammed *RIHANI* - Mohammed.Rihani@dauphine.eu
