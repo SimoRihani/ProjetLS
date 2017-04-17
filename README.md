@@ -30,11 +30,14 @@ This project is licensed under the GNU LGPL, Version 3.0. See LICENSE for full l
 
 ## Contributors
 
-The team of students behind this project is exclusively composed of developers:
 - Hamaza *BOUKRIM* - Hamza.Boukrim@dauphine.eu
 - Jasmin *DIANTOUBA* - Jasmin.Diantouba@dauphine.eu
 - Oussama *DIBT* - Oussama.Dibt@dauphine.eu
 - Mohammed *RIHANI* - Mohammed.Rihani@dauphine.eu
+
+###Supervisor
+
+- Brice *MAYAG* brice.mayag@dauphine.fr
 
 
 
