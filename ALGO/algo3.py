@@ -22,7 +22,8 @@ columns = None
 N = 3 #Ce paramètre doit etre renseigné avant mu_ij 
 Lambda = .8
 maximiser_list = [1, 1, 1]
-rang = [0, 1, 2]
+data = None
+
 profiles = None
 
 
@@ -44,25 +45,25 @@ def pareto_dominance(b_sup, b_inf) :
     """Vrai si b_sup est meilleur que b_inf sur tous les critères"""
     return np.all(b_sup > b_inf)
 
-def EvalOptimiste(H) :
+def EvalOptimiste(H, profiles) :
     """Effectue un classement optimiste du candidat H"""
-    rang = rang.sort()
-    for x in rang :
+    rang = profiles.index
+    for i in rang :
         #on recupère le ieme profile
-        b = profiles.loc[x] 
+        b = profiles.loc[i] 
         if (S(b, H)) :
-            return x
+            return i - 1
 
     return rand.max()
     
-def EvalPessimiste() :
+def EvalPessimiste(H, profiles) :
     """Effectue un classement optimiste du candidat H"""
-    rang = np.sort(rang)
-    for x in rang[::-1] :
+    rang = profiles.index
+    for i in rang[::-1] :
         #on recupère le ieme profile
-        b = profiles.loc[x] 
+        b = profiles.loc[i] 
         if (S(H, b)) :
-            return x
+            return i
 
     return rand.min()
 

@@ -9,6 +9,12 @@ import pandas as pd
 import json
 from pprint import pprint
 
+File = {"Profiles" : { "Academie" : [2, 3, 4], "Departement" : [5, 6, 7], "Dernier" : [8, 9, 10] },
+        "Contenu" : { "Academie" : [2, 3, 4], "Departement" : [5, 6, 7], "Dernier" : [8, 9, 10] },
+        "Parametres" : { "N" : [4], "Departement" : [5, 6, 7], "Dernier" : [8, 9, 10] }
+}
+
+
 
 #Liste des paramètres 
 utilite = 0 #fonction par defaut (à définir)
@@ -20,39 +26,52 @@ V = None
 columns = None
 N = 0 #Ce paramètre doit etre renseigné avant mu_ij 
 Lambda = 0
+profiles = None
 
 
 #poids; liste des poids pour chaque critère séparés par un ;
-params = ['N;4', 'mu_ij;.1;.3;.4;.6;.7;.9;', 'mu_i;.001;.003;.006;.01']
+#params = ['N;4', 'mu_ij;.1;.3;.4;.6;.7;.9;', 'mu_i;.001;.003;.006;.01']
 
 
-def read_params(params) :
-    for p in params :
-        param_c = p.split(';')
+def read_params(File) :
+    utilite = 0 #fonction par defaut (à définir)
+    poids = None
+    mu_i = None
+    mu_ij = None
+    I = None
+    V = None
+    columns = None
+    N = 0 #Ce paramètre doit etre renseigné avant mu_ij 
+    Lambda = 0
+    profiles = None
+
+    params = File['Parametres']
+    for param_c, value_param in params.items() :
+        #param_c = p.split(';')
         
         #Nombre de critères
-        if (param_c[0] == 'N') :
-            N = int(param_c[1])
+        if (param_c == 'N') :
+            N = int(value_param[0])
         
         #lambda
-        if (param_c[0] == 'lambda') :
-            Lambda = float(param_c[1])
+        if (param_c == 'lambda') :
+            Lambda = float(value_param[0])
             
         #Poids
-        if ((param_c[0] == 'poids') or (param_c[0] == 'w') or (param_c[0] == 'v')) :
+        if ((param_c == 'poids') or (param_c == 'w') or (param_c == 'v')) :
             poids = []
-            for x in param_c[1:] :
+            for x in value_param :
                 poids = poids + [float(x)]
     
         #colonne
-        if ((param_c[0] == 'colonne') or (param_c[0] == 'cols') or (param_c[0] == 'columns')) :
+        if ((param_c == 'colonne') or (param_c == 'cols') or (param_c == 'columns')) :
             columns = []
-            for x in param_c[1:] :
+            for x in value_param :
                 columns = columns + [float(x)]
         
         #Utilité
-        if ((param_c[0] == 'utilite') or (param_c[0] == 'u')) :
-            utilite = int(param_c[1])
+        if ((param_c == 'utilite') or (param_c == 'u')) :
+            utilite = int(value_param[0])
         
         #params = ['mu_i;1;3;4;5', '']
         
@@ -60,22 +79,23 @@ def read_params(params) :
         #param_c[1:] = map(lambda x : float(x), param_c[1:])
         
         #mu_i
-        if (param_c[0] == 'mu_i') :
+        if (param_c == 'mu_i') :
             mu_i = []
-            for x in param_c[1:] :
+            for x in value_param :
                 mu_i = mu_i + [float(x)]
         
         
-        if (N > 0 and param_c[0] == 'mu_ij') :
+        if (N > 0 and param_c == 'mu_ij') :
             mu_ij = np.zeros((N, N))
             idx = 1
             for i in range(0, N) :
                 for j in range(i, N) :
                     if (i != j) :
-                        mu_ij[i, j] = float(param_c[idx])
+                        mu_ij[i, j] = float(value_param[idx])
                         mu_ij[j, i] = mu_ij[i, j]
                         idx = idx + 1
                         
+    return (utilite, poids, mu_i, mu_ij, I, V, columns, N, Lambda, profiles)
     
 def I_ij(i, j, mu_i, mu_ij) :
     #print(mu_ij[i, j] , mu_i[i], mu_i[j])
@@ -159,14 +179,28 @@ def parse_data(data, cols=None) :
     
     return data[new_cols]
 
+def read_profiles(File) :
+    content = File["Profiles"]
+    
+    profiles = pd.DataFrame(content)
+    return profiles
+    
+def read_data(File) :
+    content = File["Contenu"]
+    
+    data = pd.DataFrame(content)
+    return data
 
 
     
 #print(param_c)
+profiles = read_profiles(File)
+data = read_data(File)
+
+(utilite, poids, mu_i, mu_ij, I, V, columns, N, Lambda, profiles) = read_params(File)
+print(N)
 #print(mu_i)
-print(mu_ij)
-print(mu_i)
-print(I(mu_i, mu_ij))
+#print(I(mu_i, mu_ij))
 #print(I_ij(2, 3, mu_i, mu_ij))
 #print(V_i(2, mu_i, mu_ij))
 
