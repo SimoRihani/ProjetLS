@@ -197,13 +197,13 @@ function drawRow(rowData) {
     		  //obj[headers[j]] += elements[i][j];
   	  }
       console.log('tmp2 ' + tmp2);
-      obj.push(tmp2);
+      obj2.push(tmp2);
       //console.log('object : ' + obj);
-  	  res2[headers2[j]] = tmp;
+  	  res2[headers2[j]] = tmp2;
       //console.log('here   ' + result);
     }
-    res['Param'] = res2;
-    res['Content'] = result;
+    res['Param'] = result;
+    res['Content'] = res2;
     res['Method'] = meth;
 
     //return result; //JavaScript object

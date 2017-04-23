@@ -7,7 +7,7 @@ import sys
 from foo import content
 from foo import method
 from foo import param
-
+from algo import algorithme_2
 
 app = Flask(__name__)
 
@@ -41,12 +41,14 @@ def signUpUser():
 def indexAct():
     #  return request.form['header'];
     #print(request.get_json()['Content']);
-    print('Method :');
-    print(method(request.get_json()));
-    print('Content :');
-    print(content(request.get_json()));
-    print('Param :');
-    print(param(request.get_json()));
+    #print('Method :');
+    #print(method(request.get_json()));
+    #print('Content :');
+    #print(content(request.get_json()));
+    # print('Param :');
+    # print(param(request.get_json()));
+    print('Rendu : ');
+    print(algorithme_2(request.get_json()));
     return json.dumps(request.get_json());
     #return(json.dumps(bar2().get_json())
     #return request.form['output'];
