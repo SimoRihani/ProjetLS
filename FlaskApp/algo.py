@@ -6,9 +6,9 @@ Created on Sat Apr 22 16:47:12 2017
 """
 
 from parser import *
-from parser import read_data
-from parser import read_params
-import parser
+#from parser import read_data
+#from parser import read_params
+#import parser
 from Methode2 import EvalWeightedSumInteract
 from Methode2 import *
 from Methode1 import *
@@ -43,8 +43,6 @@ def norm(data, normalisation=0) :
     return data_norm
 
 def algorithme_2(File) :
-    print('JASMIN------- ')
-    print(File)
     data_brute = read_data(File)
     (utilite, poids, mu_i, mu_ij, columns, N, Lambda) = read_params(File)
     V = v(mu_i, mu_ij, N)
@@ -54,27 +52,24 @@ def algorithme_2(File) :
     if (not param_Valide_Algo_2(V, mu_i, mu_ij, I, poids, N)) :
         print('parametres non valides')
         #return False
-    print('I & V & N & mus ')
-    print(I)
-    print(V)
-    print(N)
-    print(mu_i)
-    print(mu_ij)
+
 
     data_brute = traite_data(data_brute, poids)
-    print('data_brute ')
-    print(data_brute)
-    print(data_brute.info())
+    
     data = norm(data_brute, normalisation=utilite)
     data['score'] = -1
 
     for idx in data.index :
         data.loc[idx, 'score'] = EvalWeightedSumInteract(data.loc[idx, data.columns[:-1]], poids, I, N)
-        print('EVALUATION ')
-        print(EvalWeightedSumInteract(data.loc[idx, data.columns[:-1]], poids, I, N))
-    return data
+    
+    d = {}
+    for x in df.columns :
+        d[x] = list(data[x])
+    return d
 
-#print(algorithme_2(File))
+#print('algo 2 ', algorithme_2(File))
+
+
 
 def algorithme_3_Pessimiste(File) :
     data_brute = read_data(File)

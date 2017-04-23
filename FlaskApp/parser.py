@@ -10,8 +10,8 @@ import json
 from pprint import pprint
 
 File = {"Profiles" : { "Academie" : [2, 3, 4], "Departement" : [5, 6, 7], "Dernier" : [8, 9, 10] },
-        "Contenu" : { "Academie" : [2, 3, 4], "Departement" : [5, 6, 7], "Dernier" : [8, 9, 10] },
-        "Parametres" : { "N" : [3], "mu_ij" : [.1, .3, .4, .6, .7, .9], "mu_i" : [5, 6, 7], "poids" : [8, 9, 10] }
+        "Content" : { "Academie" : [2, 3, 4], "Departement" : [5, 6, 7], "Dernier" : [8, 9, 10] },
+        "Param" : { "N" : [3], "mu_ij" : [.1, .3, .4, .6, .7, .9], "mu_i" : [5, 6, 7], "poids" : [8, 9, 10] }
 }
 """[{"EmailAddress": "terrya@contoso.edu", "FirstName": "Terry", "LastName": "Adams", "Name": "adamsta0109", "Password": "1091990"}, {"EmailAddress": "annb@contoso.edu", "FirstName": "Ann", "LastName": "Beebe", "Method 1 & Name": "beebeab0211", "Password": "2111991"}]"""
 
