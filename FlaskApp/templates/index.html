@@ -43,7 +43,7 @@
 <div style="font-size: 1.2em">
 <span style="font-style: italic">Evaluate !</span> is a tool to evaluate different alternatives, by making a ranking from the best one to the worst.<br />
 Based on two documents to be attached : the first for the desired configuration (different weightings of the criteria)
-and the second for the data, you can apply one of the three evaluation methods available. You can access this project github page by clicking on
+and the second for the data, you can apply one of the four evaluation methods available. You can access this project github page by clicking on
 LS - Project at the left section.
 </div><br />
 
@@ -56,7 +56,8 @@ LS - Project at the left section.
 <b> <span class="glyphicon glyphicon-cog"></span> Evaluation method </b> <select id="header" name="header" class="form-control" style="width:53%">
 <option value="1">1-Evaluate by a weighted sum</option>
 <option value="2">2-Evaluate by a weighted sum taking into account the interaction between criterion</option>
-<option value="3">3-Evaluate with the ELECTRE TRI method</option><br />
+<option value="3">3-Evaluate with the Optimistic ELECTRE TRI method</option>
+<option value="4">4-Evaluate with the Pessimistic ELECTRE TRI method</option><br />
 </select>
 
 
@@ -69,9 +70,10 @@ LS - Project at the left section.
 <div id="myT" hidden="true">
 <table class="table table-hover" id="myTable"><br />
       <tr>
-        <th>Name</th>
-        <th>1st criteria</th>
-        <th>Global Score</th>
+        <th>Academie</th>
+        <th>Departement</th>
+        <th>Dernier</th>
+        <th>Score</th>
       </tr>
   </table>
 </div>
@@ -109,18 +111,20 @@ LS - Project at the left section.
   // });
 
   function drawTable(data) {
+    console.log(typeof(data))
     for (var i = 0; i < data.length; i++) {
         drawRow(data[i]);
-        console.log('data ' + data[i]);
+        console.log('data ' + data[0].Academie + ' Length ' + data.length);
     }
 }
 
 function drawRow(rowData) {
     var row = $("<tr />")
     $("#myTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
-    row.append($("<td>" + rowData.Name + "</td>"));
-    row.append($("<td>" + rowData.C2 + "</td>"));
-    row.append($("<td>" + rowData.NG + "</td>"));
+    row.append($("<td>" + rowData.Academie + "</td>"));
+    row.append($("<td>" + rowData.Departement + "</td>"));
+    row.append($("<td>" + rowData.Dernier + "</td>"));
+    row.append($("<td>" + rowData.score + "</td>"));
 }
 
   // function csvJSON(csv){
@@ -377,6 +381,7 @@ $("#submitbutton").on("click", function(){
         success: function(response) {
             console.log(response);
             drawTable($.parseJSON(response));
+            //drawTable(response);
             document.getElementById("myT").hidden = !document.getElementById("myT").hidden;
         },
         error: function(error) {
@@ -436,7 +441,7 @@ $("#submitbutton").on("click", function(){
             console.log(document.getElementById("pr").style.display);
             document.getElementById("pr").style.display = "block";
             $("#output").text(outtxt);
-            console.log(outtxt)
+            //console.log(outtxt)
         });
     });
 

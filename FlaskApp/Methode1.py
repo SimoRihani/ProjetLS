@@ -14,4 +14,4 @@ def sommePonderee(utilite_marginale, poids):
 
 
 
-#print(sommePonderee(utilite,poids));
+print(sommePonderee(utilite,poids));

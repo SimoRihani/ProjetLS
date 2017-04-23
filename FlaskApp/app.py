@@ -7,6 +7,7 @@ import sys
 from foo import content
 from foo import method
 from foo import param
+from algo import algorithme
 from algo import algorithme_2
 from algo import algorithme_1
 
@@ -40,6 +41,7 @@ def signUpUser():
 
 @app.route('/indexAct', methods=['GET', 'POST'])
 def indexAct():
+    a = 'Academie,Departement,Dernier\n2,5,8\n3,6,9\n4,7,10'
     #  return request.form['header'];
     #print(request.get_json()['Content']);
     #print('Method :');
@@ -49,9 +51,11 @@ def indexAct():
     # print('Param :');
     # print(param(request.get_json()));
     print('Rendu : ');
-    # print(algorithme_2(request.get_json()));
-    print(algorithme_1(request.get_json()));
-    return json.dumps(request.get_json());
+    print(algorithme(request.get_json()));
+    #print(request.get_json())
+    #print(algorithme_1(request.get_json()));
+    return json.dumps(algorithme(request.get_json()));
+    #return a;
     #return(json.dumps(bar2().get_json())
     #return request.form['output'];
 

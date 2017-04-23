@@ -9,9 +9,10 @@ import pandas as pd
 import json
 from pprint import pprint
 
-File = {"Profiles" : { "Academie" : [2, 3, 4], "Departement" : [5, 6, 7], "Dernier" : [8, 9, 10] },
+File = {"Profiles" : { "Academie" : [60000, 30000, 40000], "Departement" : [5, 6, 7], "Dernier" : [80, 90, 100] },
         "Content" : { "Academie" : [2, 3, 4], "Departement" : [5, 6, 7], "Dernier" : [8, 9, 10] },
-        "Param" : { "N" : [3], "mu_ij" : [.1, .3, .4, .6, .7, .9], "mu_i" : [5, 6, 7], "poids" : [8, 9, 10] }
+        "Param" : {"norm" : [1000, 1, 20], "N" : [3], "mu_ij" : [.1, .3, .4, .6, .7, .9], "mu_i" : [5, 6, 7], "poids" : [8, 9, 10] },
+        "Method" : "1"
 }
 """[{"EmailAddress": "terrya@contoso.edu", "FirstName": "Terry", "LastName": "Adams", "Name": "adamsta0109", "Password": "1091990"}, {"EmailAddress": "annb@contoso.edu", "FirstName": "Ann", "LastName": "Beebe", "Method 1 & Name": "beebeab0211", "Password": "2111991"}]"""
 
@@ -28,6 +29,7 @@ columns = None
 N = 0 #Ce paramètre doit etre renseigné avant mu_ij
 Lambda = 0
 profiles = None
+norm = None
 
 
 #poids; liste des poids pour chaque critère séparés par un ;
@@ -42,6 +44,7 @@ def read_params(File) :
     columns = None
     N = 0 #Ce paramètre doit etre renseigné avant mu_ij
     Lambda = 0
+    norm = None
 
     params = File['Param']
     for param_c, value_param in params.items() :
@@ -50,6 +53,7 @@ def read_params(File) :
         #Nombre de critères
         if (param_c == 'N') :
             N = int(value_param[0])
+
 
         #lambda
         if (param_c == 'lambda') :
@@ -76,6 +80,12 @@ def read_params(File) :
 
         #param_c = params[0].split(';')
         #param_c[1:] = map(lambda x : float(x), param_c[1:])
+        #mu_i
+        if (param_c == 'norm') :
+            norm = []
+            for x in value_param :
+                if(x != ''):
+                    norm = norm + [float(x)]
 
         #mu_i
         if (param_c == 'mu_i') :
@@ -83,7 +93,7 @@ def read_params(File) :
             for x in value_param :
                 if(x != ''):
                     mu_i = mu_i + [float(x)]
-        print('PARSER ')
+        #print('PARSER ')
         if (param_c == 'mu_ij') :
             N = int(params["N"][0])
             mu_ij = np.zeros((N, N))
@@ -94,10 +104,10 @@ def read_params(File) :
                         mu_ij[i, j] = float(value_param[idx])
                         mu_ij[j, i] = mu_ij[i, j]
                         idx = idx + 1
-            print('PARSER ')
-            print(mu_ij)
+            #print('PARSER ')
+            #print(mu_ij)
 
-    return (utilite, poids, mu_i, mu_ij, columns, N, Lambda)
+    return (utilite, poids, mu_i, mu_ij, columns, N, Lambda, norm)
 
 #read_params(File)
 def I_ij(i, j, mu_i, mu_ij, N) :
@@ -219,7 +229,7 @@ def read_line_dict(data) :
 # data['score'] = 12
 # data.to_csv('resultat.csv', index=False)
 #print(read_data(File))
-#print(param_c)
+# print(read_params(File))
 # profiles = read_profiles(File)
 #print(profiles)
 #data = read_data(File)

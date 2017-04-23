@@ -13,11 +13,11 @@ utilite_marginale = [19,9,12]
 
 def somme_A(poids,utilite_marginale,n) :
     res = 0
-    print('Poids & utilite_marginale ')
-    print(poids,utilite_marginale)
+    # print('Poids & utilite_marginale ')
+    # print(poids,utilite_marginale)
     for i in range(0,n):
-        print('POIDS & ')
-        print(poids[i],utilite_marginale[i])
+        # print('POIDS & ')
+        # print(poids[i],utilite_marginale[i])
         res = res + poids[i]*utilite_marginale[i]
 
     return res
@@ -27,8 +27,8 @@ def somme_A(poids,utilite_marginale,n) :
 def EvalWeightedSumInteract(utilite_marginale, poids, indice_interaction, n) :
     s_B = 0
     s_A = somme_A(poids, utilite_marginale, n)
-    print('Indice in ')
-    print(indice_interaction)
+    # print('Indice in ')
+    # print(indice_interaction)
     for i in range(n):
         for j in range(n):
             s_B = s_B + indice_interaction[i][j] * abs(utilite_marginale[i]-utilite_marginale[j])
