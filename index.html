@@ -69,12 +69,12 @@ LS - Project at the left section.
 
 <div id="myT" hidden="true">
 <table class="table table-hover" id="myTable"><br />
-      <tr>
+      <!-- <tr>
         <th>Academie</th>
         <th>Departement</th>
         <th>Dernier</th>
         <th>Score</th>
-      </tr>
+      </tr> -->
   </table>
 </div>
 
@@ -109,22 +109,34 @@ LS - Project at the left section.
   //     //$('#nav_bar').removeClass('navbar-fixed-left');
   //   }
   // });
+  function drawHead(header) {
+    console.log(header);
+    $("#myTable").append("<tr>");
+    for(i=0; i < header.length;i++)
+      $("#myTable").append($("<th>" + header[i] + "</th>"));
+    //$("#myTable").append($("<th>Simo</th>"));
+    $("#myTable").append("</tr>");
+  }
 
-  function drawTable(data) {
+  function drawTable(data, header) {
     console.log(typeof(data))
     for (var i = 0; i < data.length; i++) {
-        drawRow(data[i]);
+        drawRow(data[i], header);
         console.log('data ' + data[0].Academie + ' Length ' + data.length);
     }
 }
 
-function drawRow(rowData) {
+function drawRow(rowData, header) {
     var row = $("<tr />")
+    //var head = String(header).split(",");
+    console.log('HEREYEYEUEJ ' + typeof(header) + header + header.length);
     $("#myTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
-    row.append($("<td>" + rowData.Academie + "</td>"));
-    row.append($("<td>" + rowData.Departement + "</td>"));
-    row.append($("<td>" + rowData.Dernier + "</td>"));
-    row.append($("<td>" + rowData.score + "</td>"));
+    for(i = 0; i < header.length; i++)
+      row.append($("<td>" + rowData[header[i]] + "</td>"));
+    // row.append($("<td>" + rowData.Academie + "</td>"));
+    // row.append($("<td>" + rowData.Departement + "</td>"));
+    // row.append($("<td>" + rowData.Dernier + "</td>"));
+    // row.append($("<td>" + rowData.score + "</td>"));
 }
 
   // function csvJSON(csv){
@@ -380,7 +392,8 @@ $("#submitbutton").on("click", function(){
         type: 'POST',
         success: function(response) {
             console.log(response);
-            drawTable($.parseJSON(response));
+            drawHead(Object.keys($.parseJSON(response)[0]));
+            drawTable($.parseJSON(response), Object.keys($.parseJSON(response)[0]));
             //drawTable(response);
             document.getElementById("myT").hidden = !document.getElementById("myT").hidden;
         },
