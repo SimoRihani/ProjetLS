@@ -2,6 +2,12 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import json
+import sys
+#import helpers
+from foo import content
+from foo import method
+from foo import param
+
 
 app = Flask(__name__)
 
@@ -34,7 +40,15 @@ def signUpUser():
 @app.route('/indexAct', methods=['GET', 'POST'])
 def indexAct():
     #  return request.form['header'];
-     return json.dumps(request.get_json());
+    #print(request.get_json()['Content']);
+    print('Method :');
+    print(method(request.get_json()));
+    print('Content :');
+    print(content(request.get_json()));
+    print('Param :');
+    print(param(request.get_json()));
+    return json.dumps(request.get_json());
+    #return(json.dumps(bar2().get_json())
     #return request.form['output'];
 
 

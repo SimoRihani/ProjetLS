@@ -31,8 +31,8 @@
     <span style="margin-left:30px;color:#43484d"><span class="glyphicon glyphicon-menu-right"></span> J.Diantouba</span><br />
     <span style="margin-left:30px;color:#43484d"><span class="glyphicon glyphicon-menu-right"></span> O.Dibt</span><br />
     <span style="margin-left:30px;color:#43484d"><span class="glyphicon glyphicon-menu-right"></span> M.Rihani</span><br />
-    <ul class="nav navbar-nav" id="tt"><br />
-      <li><a href="https://github.com/SimoRihani/ProjetLS" target="_blank" style="margin-left:15px;color:#337ab7; width:140px"><span class="glyphicon glyphicon-lock"></span> LS - Project </a></li><br />
+    <ul class="nav navbar-nav" id="tt">
+      <li><a href="https://github.com/SimoRihani/ProjetLS" target="_blank" style="margin-left:9px;color:#337ab7; width:150px; font-size:1.2em"><span class="glyphicon glyphicon-lock"></span> LS - Project </a></li><br />
      <li><span style="margin-left:8px;color:#43484d;font-style: italic"><span class="glyphicon glyphicon-education"></span> M2 Miage ID App.</span></li>
      <li><span style="margin-left:45px;color:#43484d"> 2016-2017 </span></li>
      <li style="margin-left:-7px;"><a href="http://www.dauphine.fr/fr/index.html" target="_blank"><img src="static/pic/logoD.png" class="logoEcole" alt="Logo Paris-Dauphine" width="140" /></a></li>
@@ -40,10 +40,11 @@
   </nav>
   <div id="bd" class="wrapper">
 <h1>  Evaluation based on several criteria</h1><br />
-<div>
+<div style="font-size: 1.2em">
 <span style="font-style: italic">Evaluate !</span> is a tool to evaluate different alternatives, by making a ranking from the best one to the worst.<br />
 Based on two documents to be attached : the first for the desired configuration (different weightings of the criteria)
-and the second for the data, you can apply one of the three evaluation methods available.
+and the second for the data, you can apply one of the three evaluation methods available. You can access this project github page by clicking on
+LS - Project at the left section.
 </div><br />
 
 <b> <span class="glyphicon glyphicon-paperclip"></span> Configuration file</b> <input type="file" id="csvfile">
@@ -110,6 +111,7 @@ and the second for the data, you can apply one of the three evaluation methods a
   function drawTable(data) {
     for (var i = 0; i < data.length; i++) {
         drawRow(data[i]);
+        console.log('data ' + data[i]);
     }
 }
 
@@ -121,29 +123,92 @@ function drawRow(rowData) {
     row.append($("<td>" + rowData.NG + "</td>"));
 }
 
-  function csvJSON(csv){
+  // function csvJSON(csv){
+  //
+  //   var lines=csv.split("\n");
+  //
+  //   var result = [];
+  //
+  //   var headers=lines[0].split(",");
+  //
+  //   for(var i=1;i<lines.length;i++){
+  //
+  // 	  var obj = {};
+  // 	  var currentline=lines[i].split(",");
+  //
+  // 	  for(var j=0;j<headers.length-1;j++){
+  // 		  obj[headers[j]] = currentline[j];
+  // 	  }
+  //
+  // 	  result.push(obj);
+  //
+  //   }
+  //
+  //   //return result; //JavaScript object
+  //   return JSON.stringify(result); //JSON
+  // }
+
+
+  function csvJSON(csv, csv2, meth){
 
     var lines=csv.split("\n");
+    var lines2=csv2.split("\n");
 
-    var result = [];
+    var result = {};
+    var res = {};
+    var res2 = {};
+    //var elements = math.ones(lines.length, headers.length-1);
 
     var headers=lines[0].split(",");
+    var headers2=lines2[0].split(",");
 
-    for(var i=1;i<lines.length;i++){
-
-  	  var obj = {};
-  	  var currentline=lines[i].split(",");
-
-  	  for(var j=0;j<headers.length;j++){
-  		  obj[headers[j]] = currentline[j];
-  	  }
-
-  	  result.push(obj);
-
+    var elements = [];
+    var elements2 = [];
+    for(var i=0; i<lines.length-1; i++) {
+      elements[i] = new Array(headers.length);
     }
+    var tmp = [];
+    for(var i=0; i<lines2.length-1; i++) {
+      elements2[i] = new Array(headers.length);
+    }
+    var tmp2 = [];
+    for(var j=0;j<headers.length;j++){
+      tmp = [];
+      for(var i=1;i<lines.length-1;i++){
+    	  var obj = [];
+    	  elements[i]=lines[i].split(",");
+        //console.log(elements[i][j]);
+        tmp.push(elements[i][j])
+    		  //obj[headers[j]] += elements[i][j];
+  	  }
+      console.log('tmp ' + tmp);
+      obj.push(tmp);
+      //console.log('object : ' + obj);
+  	  result[headers[j]] = tmp;
+      //console.log('here   ' + result);
+    }
+    for(var j=0;j<headers2.length;j++){
+      tmp2 = [];
+      for(var i=1;i<lines2.length-1;i++){
+    	  var obj2 = [];
+    	  elements2[i]=lines2[i].split(",");
+        //console.log(elements[i][j]);
+        tmp2.push(elements2[i][j])
+    		  //obj[headers[j]] += elements[i][j];
+  	  }
+      console.log('tmp2 ' + tmp2);
+      obj.push(tmp2);
+      //console.log('object : ' + obj);
+  	  res2[headers2[j]] = tmp;
+      //console.log('here   ' + result);
+    }
+    res['Param'] = res2;
+    res['Content'] = result;
+    res['Method'] = meth;
 
     //return result; //JavaScript object
-    return JSON.stringify(result); //JSON
+    console.log('HHOHOHOHOHO ' + JSON.stringify(res));
+    return JSON.stringify(res); //JSON
   }
 
   function CSVtoArray(text) {
@@ -282,7 +347,7 @@ $("#submitbutton").on("click", function(){
     //console.log("SSSSSSS" + mydata + $("#csvfile")[0].files[0].type);
     var dd = "";
     var dd2 = "";
-    var dd4 = "Method " + e.options[e.selectedIndex].value;
+    var dd4 = e.options[e.selectedIndex].value;
     read = new FileReader();
     read2 = new FileReader();
     file = $("#csvfile")[0].files[0];
@@ -293,6 +358,8 @@ $("#submitbutton").on("click", function(){
       read2.onloadend = function(){
       dd = read.result;
       dd2 = read2.result;
+      //dd['Method'] = dd4;
+      //console.log('SIMOSIMOSIMO ' + csvJSON(dd));
     //console.log("TTTTTT " + CSVtoArray(dd)[0] + CSVtoArray(dd)[3]);
     //console.log("TTTTTT " + CSVToArray(dd, ','));
     //console.log("TTTTTT " + toArrays(dd));
@@ -303,7 +370,7 @@ $("#submitbutton").on("click", function(){
         //data: $('#header').serialize(),
         //data: JSON.stringify('config : ' + dd + ';\n data : ' + dd2, null, '\t'),
         //data : csvJSON(dd4 + ' & ' + dd + ' & ' + dd2),
-        data : csvJSON(dd),
+        data : csvJSON(dd, dd2, dd4),
         contentType: 'application/json;charset=UTF-8',
         //data: mydata,
         type: 'POST',
