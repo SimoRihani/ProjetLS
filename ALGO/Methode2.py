@@ -11,26 +11,26 @@ utilite_marginale = [19,9,12]
 
 
 
-def sommePBis(poids,utilite_marginale,n):
+def somme_A(poids,utilite_marginale,n) :
     res = 0
     for i in range(0,n):
-        res += poids[i]*utilite_marginale[i]
+        res = res + poids[i]*utilite_marginale[i]
 
     return res
 
 
 
-def SommeP_Interact(utilite_marginale,poids,indice_interaction,n):
-    resF = 0
+def EvalWeightedSumInteract(utilite_marginale, poids, indice_interaction, n) :
+    s_B = 0
+    s_A = somme_A(poids, utilite_marginale, n)
 
     for i in range(0,n):
         for j in range(1,n):
-            resF += 0.5*indice_interaction[i][j]*abs(utilite_marginale[i]-utilite_marginale[j])
+            s_B = s_B + indice_interaction[i][j] * abs(utilite_marginale[i]-utilite_marginale[j])
+    
+    s_B = 0.5 * s_B
+    return (s_A - s_B)
 
-    resF = sommePBis(poids,utilite_marginale,n) - r
 
-    return resF
-
-
-print "resultat de l'évalution par une somme pondérée avec prise en compte de l'interaction entre critères : ", SommeP_Interact(utilite_marginale,poids,indice_interaction,n)
+#print "resultat de l'évalution par une somme pondérée avec prise en compte de l'interaction entre critères : ", SommeP_Interact(utilite_marginale,poids,indice_interaction,n)
 #Ce test ne prends pas en compte les différentes normalisations potentielles sur les params: utilite_marginale, poids ou indice_interaction...

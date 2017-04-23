@@ -9,22 +9,8 @@ import numpy as np
 import pandas as pd
 import json
 from pprint import pprint
+import parser
 
-
-#Liste des paramètres 
-utilite = 0 #fonction par defaut (à définir)
-poids = np.array([3, 2, 4])
-mu_i = None
-mu_ij = None
-I = None
-V = None
-columns = None
-N = 3 #Ce paramètre doit etre renseigné avant mu_ij 
-Lambda = .8
-maximiser_list = [1, 1, 1]
-data = None
-
-profiles = None
 
 
 def c_j(H, b, j, maximiser=1) :
@@ -41,9 +27,20 @@ def S(H, b) :
     """Vrai si candidat H surclasse le profile b"""
     return (C(H, b) >= Lambda)
     
-def pareto_dominance(b_sup, b_inf) :
+def pareto_dominance_ij(b_sup, b_inf) :
     """Vrai si b_sup est meilleur que b_inf sur tous les critères"""
     return np.all(b_sup > b_inf)
+    
+def pareto_dominance(profiles) :
+    """Vrai si la pareto dominance stricte est vérifiée pour tous les profiles"""
+    for idx in range(len(profiles.index) - 1) :
+        b_inf = profiles.loc[profiles.index[idx]]
+        b_sup = profiles.loc[profiles.index[idx + 1]]
+        if (not pareto_dominance_ij(b_sup, b_inf)) :
+            return False
+            
+    return True
+pareto_dominance(profiles)
 
 def EvalOptimiste(H, profiles) :
     """Effectue un classement optimiste du candidat H"""
@@ -72,4 +69,5 @@ H = np.array([2, 3, 4])
 b = np.array([1, 4, 4])
 
 #[1, 0, 1]
+print(poids)
 print(S(H, b))
