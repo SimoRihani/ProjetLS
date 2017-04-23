@@ -19,7 +19,12 @@ Make sure that you have **Python** and **Flask** installed on your system. If no
 Clone ProjetLS with `git clone https://github.com/SimoRihani/ProjetLS.git`
 Then run the following :
 
+	
 	cd ProjetLS/FlaskApp/
+	python parser.py
+	python Methode1.py
+	python Methode2.py
+	python algo.py
 	python app.py
   
 You can access the tool by going on your browser, localhost on port 5000 : `localhost:5000`
