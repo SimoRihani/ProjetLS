@@ -1,25 +1,17 @@
-
+import numpy as np
 #PARAMS DE TEST
 
-Nespresso = {'qualite' : 3.0, 'fonctionnalite' : 2.0}
-Tassimo = {'qualite' : 2.0, 'fonctionnalite' : 1.0}
-Cfe = {'qualite' : 3.0, 'fonctionnalite' : 2.0}
+poids = [3, 4, 5]
+
+utilite = [2, 3, 4]
 
 
-poids = {'qualite':3.0, 'fonctionnalite':6.0}
+def sommePonderee(utilite_marginale, poids):
+    u = np.array(utilite_marginale)
+    p = np.array(poids)
 
-
-
-def sommePonderee (utilite_marginale, poids):
-
-    SommeP = 0
-    if(utilite_marginale == {} or poids =={}):
-        return 'ERROR'
-    else:
-        for i,j in zip(utilite_marginale.values(), poids.values()):
-            SommeP += i * j;
-    return SommeP
+    return np.dot(u, p)
 
 
 
-# print(sommePonderee(utilite_marginale_unit(Nespresso),poids));
+print(sommePonderee(utilite,poids));

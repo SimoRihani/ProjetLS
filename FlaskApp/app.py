@@ -8,6 +8,7 @@ from foo import content
 from foo import method
 from foo import param
 from algo import algorithme_2
+from algo import algorithme_1
 
 app = Flask(__name__)
 
@@ -48,7 +49,8 @@ def indexAct():
     # print('Param :');
     # print(param(request.get_json()));
     print('Rendu : ');
-    print(algorithme_2(request.get_json()));
+    # print(algorithme_2(request.get_json()));
+    print(algorithme_1(request.get_json()));
     return json.dumps(request.get_json());
     #return(json.dumps(bar2().get_json())
     #return request.form['output'];

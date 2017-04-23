@@ -11,6 +11,7 @@ from parser import read_params
 import parser
 from Methode2 import EvalWeightedSumInteract
 from Methode2 import *
+from Methode1 import *
 
 
 # (utilite, poids, mu_i, mu_ij, columns, N, Lambda) = read_params(File)
@@ -18,19 +19,24 @@ from Methode2 import *
 #print(V)
 
 def algorithme_1(File) :
-    data_rute = read_data(File)
+    data_brute = read_data(File)
     (utilite, poids, mu_i, mu_ij, columns, N, Lambda) = read_params(File)
 
     #test des paramètres
     if (not param_Valide_Algo_1(poids)) :
         print('poids non valides')
-        return False
-    data_brute = traite_data(data, poids)
+        # return False
+    data_brute = traite_data(data_brute, poids)
 
-    data = data_brute.copy()
+    print('data_brute ')
+    print(data_brute)
 
-    data_dict = read_line_dict(data)
-    return True
+    data = norm(data_brute, normalisation=utilite)
+    data['score'] = -1
+
+    for idx in data.index :
+        data.loc[idx, 'score'] = sommePonderee(data.loc[idx, data.columns[:-1]], poids)
+    return data
 
 def norm(data, normalisation=0) :
     data_norm = data.copy()
