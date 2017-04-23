@@ -12,22 +12,18 @@ The client side is developed with jQuery and Bootstrap, and the server side with
 This project is part of the *M2 Miage ID* training at [Paris-Dauphine][] University.  
 
 
-## Installation
+## Deploy
 
-Make sure that you have **Python** and **Flask** installed on your system. If not, please download them beforehand.  
+Make sure that you have **Python** (2.7) and **Flask** installed on your system. If not, please download them beforehand.  
 
 Clone ProjetLS with `git clone https://github.com/SimoRihani/ProjetLS.git`
 Then run the following :
 
 	
-	cd ProjetLS/FlaskApp/
-	python parser.py
-	python Methode1.py
-	python Methode2.py
-	python algo.py
-	python app.py
+	cd ProjetLS
+	./Evaluate.sh
   
-You can access the tool by going on your browser, localhost on port 5000 : `localhost:5000`
+You can access the tool by going on your browser, localhost on port 5000/index : `localhost:5000/index`
 
 
 ## License
