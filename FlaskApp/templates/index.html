@@ -63,12 +63,16 @@ LS - Project at the left section.
 
 <br />
 <button id="submitbutton" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-send"></span> GO </button>
-<button id="refreshbutton" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-repeat"></span></button><br />
+<button id="refreshbutton" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-repeat"></span></button>
+
+
+<a href="#" id="export" class="export" style="margin-left: 35%; visibility:hidden"><img src="static/pic/csvIcon.png" class="logoCsv" width="40" /></a>
+<!-- <a href="#" class="export">Export Table data into Excel</a> -->
 
 <div name="out" id="out" style="display:none"><pre id="pr" style="display:none"><code id="output"></code></pre></div>
 <pre style="display:none"><code id="output2"></code></pre>
 
-<div id="myT" hidden="true">
+<div id="myT">
 <table class="table-bordered table-hover" id="myTable"><br />
       <!-- <tr>
         <th>Academie</th>
@@ -80,6 +84,85 @@ LS - Project at the left section.
 </div>
 
 <script>
+
+function exportTableToCSV($table, filename) {
+
+        var $rows = $table.find('tr:has(td)'),
+
+            // Temporary delimiter characters unlikely to be typed by keyboard
+            // This is to avoid accidentally splitting the actual contents
+            tmpColDelim = String.fromCharCode(11), // vertical tab character
+            tmpRowDelim = String.fromCharCode(0), // null character
+
+            // actual delimiter characters for CSV format
+            colDelim = '","',
+            rowDelim = '"\r\n"',
+
+            // Grab text from table into CSV formatted string
+            csv = '"' + $rows.map(function (i, row) {
+                var $row = $(row),
+                    $cols = $row.find('td');
+
+                return $cols.map(function (j, col) {
+                    var $col = $(col),
+                        text = $col.text();
+
+                    return text.replace(/"/g, '""'); // escape double quotes
+
+                }).get().join(tmpColDelim);
+
+            }).get().join(tmpRowDelim)
+                .split(tmpRowDelim).join(rowDelim)
+                .split(tmpColDelim).join(colDelim) + '"';
+
+				// Deliberate 'false', see comment below
+        if (false && window.navigator.msSaveBlob) {
+
+						var blob = new Blob([decodeURIComponent(csv)], {
+	              type: 'text/csv;charset=utf8'
+            });
+
+            // Crashes in IE 10, IE 11 and Microsoft Edge
+            // See MS Edge Issue #10396033: https://goo.gl/AEiSjJ
+            // Hence, the deliberate 'false'
+            // This is here just for completeness
+            // Remove the 'false' at your own risk
+            window.navigator.msSaveBlob(blob, filename);
+
+        } else if (window.Blob && window.URL) {
+						// HTML5 Blob
+            var blob = new Blob([csv], { type: 'text/csv;charset=utf8' });
+            var csvUrl = URL.createObjectURL(blob);
+
+            $(this)
+            		.attr({
+                		'download': filename,
+                		'href': csvUrl
+		            });
+				} else {
+            // Data URI
+            var csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+
+						$(this)
+                .attr({
+               		  'download': filename,
+                    'href': csvData,
+                    'target': '_blank'
+            		});
+        }
+    }
+
+    // This must be a hyperlink
+    $(".export").on('click', function (event) {
+        // CSV
+        var args = [$('#myT>table'), 'export.csv'];
+
+        exportTableToCSV.apply(this, args);
+
+        // If CSV, don't do event.preventDefault() or return false
+        // We actually need this to be a typical hyperlink
+    });
+
 // (function($){
 //     $(document).ready(function(){
 //         var offset = $(".navbar").offset().top;
@@ -114,9 +197,11 @@ LS - Project at the left section.
     console.log(header);
     $("#myTable").append("<tr>");
     for(i=0; i < header.length;i++)
-      $("#myTable").append($("<th> " + ' ' + header[i] + " </th>"));
+      $("#myTable").append($("<th> " + header[i].toUpperCase() + " </th>"));
     //$("#myTable").append($("<th>Simo</th>"));
     $("#myTable").append("</tr>");
+    console.log($("#myTable th").padding);
+    $("#myTable th").css({"color": "grey", "padding-top": "12px", "padding-bottom": "12px", "padding-left": "12px", "padding-right": "12px"})
   }
 
   function drawTable(data, header) {
@@ -138,6 +223,7 @@ function drawRow(rowData, header) {
     // row.append($("<td>" + rowData.Departement + "</td>"));
     // row.append($("<td>" + rowData.Dernier + "</td>"));
     // row.append($("<td>" + rowData.score + "</td>"));
+    $("#myTable td").css({"padding": "10px"})
 }
 
   // function csvJSON(csv){
@@ -398,7 +484,9 @@ $("#submitbutton").on("click", function(){
             drawHead(Object.keys($.parseJSON(response)[0]));
             drawTable($.parseJSON(response), Object.keys($.parseJSON(response)[0]));
             //drawTable(response);
-            document.getElementById("myT").hidden = !document.getElementById("myT").hidden;
+            // document.getElementById("myT").hidden = !document.getElementById("myT").hidden;
+            document.getElementById("export").style.visibility = "visible";
+
         },
         error: function(error) {
             console.log(error);
