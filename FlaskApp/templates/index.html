@@ -62,7 +62,8 @@ LS - Project at the left section.
 
 
 <br />
-<button id="submitbutton" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-send"></span> GO </button><br />
+<button id="submitbutton" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-send"></span> GO </button>
+<button id="refreshbutton" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-repeat"></span></button><br />
 
 <div name="out" id="out" style="display:none"><pre id="pr" style="display:none"><code id="output"></code></pre></div>
 <pre style="display:none"><code id="output2"></code></pre>
@@ -336,7 +337,10 @@ function CSVToArray( strData, strDelimiter ){
 ocpu.seturl("http://public.opencpu.org/ocpu/library/utils/R")
 //actual handler
 $("#submitbutton").on("click", function(){
-
+    console.log('HNAWAHNA ' + document.getElementById('csvfile').readOnly);
+    document.getElementById('csvfile').disabled = true;
+    document.getElementById('csvfile2').disabled = true;
+    //document.getElementById('submitbutton').disabled = true;
     //arguments
     var myheader = $("#header").val() == 1;
     var myfile = $("#csvfile")[0].files[0];
@@ -355,7 +359,6 @@ $("#submitbutton").on("click", function(){
             // call a function on complete
         }
     });
-
 
 
 
@@ -441,6 +444,7 @@ $("#submitbutton").on("click", function(){
         return;
     }
 
+
     //disable the button during upload
     $("#submitbutton").attr("disabled", "disabled");
 
@@ -485,8 +489,16 @@ $("#submitbutton").on("click", function(){
     req2.always(function(){
         $("#submitbutton").removeAttr("disabled")
     });
+    //$("#submitbutton").disabled = true;
+    $("#submitbutton").prop('disabled', true);
+    console.log('LOGLOGLOGLOGLOGLOG ' + $("#submitbutton").disabled);
 
 });
+$("#refreshbutton").on("click", function(){
+  console.log('HEYHOOO');
+    window.location.reload(false);
+  });
+
 </script>
 </div>
 </body>
