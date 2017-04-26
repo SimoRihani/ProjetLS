@@ -16,17 +16,20 @@ body
   border-radius: 0;
   height: 600px;
 }
+
+
 /*table tr {
   padding-left: 20px;
   padding-top: 20px;
   margin-left: 50px;
 }*/
 
-th {
+
+/*th {
   border-spacing: 100px;
   position: absolute;
   top: 50%;
-}
+}*/
 
 .export: hover {
   content: 'Export to csv';

@@ -32,6 +32,8 @@ def algorithme_1(File) :
     data['score'] = -1
 
     for idx in data.index :
+        print("SHAPEEEEE", data.loc[idx].shape)
+        # if (data.loc[idx].shape[0] < 2) :
         data.loc[idx, 'score'] = sommePonderee(data.loc[idx, data.columns[:-1]], poids)
     data.sort_values('score', inplace=True, ascending=False)
     data = data.reset_index()
