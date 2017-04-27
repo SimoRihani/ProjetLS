@@ -35,7 +35,7 @@ def algorithme_1(File) :
         print("SHAPEEEEE", data.loc[idx].shape)
         # if (data.loc[idx].shape[0] < 2) :
         data.loc[idx, 'score'] = sommePonderee(data.loc[idx, data.columns[:-1]], poids)
-    data.sort_values('score', inplace=True, ascending=False)
+    data.sort_values('score', inplace=True, ascending=True)
     data = data.reset_index()
 
     # data.to_csv("resultat.csv")
@@ -82,7 +82,7 @@ def algorithme_2(File) :
 
     for idx in data.index :
         data.loc[idx, 'score'] = EvalWeightedSumInteract(data.loc[idx, data.columns[:-1]], poids, I, N)
-    data.sort_values('score', inplace=True, ascending=False)
+    data.sort_values('score', inplace=True, ascending=True)
     data = data.reset_index()
 
     # data.to_csv("resultat.csv")
@@ -118,7 +118,7 @@ def algorithme_3_Optimiste(File) :
 
     for idx in data.index :
         data.loc[idx, 'classe'] = EvalOptimiste(data.loc[idx, data.columns[:-1]], profiles, maximiser, poids, Lambda)
-    data.sort_values('classe', inplace=True, ascending=False)
+    data.sort_values('classe', inplace=True, ascending=True)
     data = data.reset_index()
 
     # data.to_csv("resultat.csv")
@@ -152,7 +152,7 @@ def algorithme_3_Pessimiste(File) :
 
     for idx in data.index :
         data.loc[idx, 'classe'] = EvalPessimiste(data.loc[idx, data.columns[:-1]], profiles, maximiser, poids, Lambda)
-    data.sort_values('classe', inplace=True, ascending=False)
+    data.sort_values('classe', inplace=True, ascending=True)
     data = data.reset_index()
     # data.to_csv("resultat.csv")
     res = []
