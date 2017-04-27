@@ -63,10 +63,10 @@ LS - Project at the left section.
 
 <br />
 <button id="submitbutton" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-send"></span> GO </button>
-<button id="refreshbutton" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-repeat"></span></button>
+<button id="refreshbutton" type="button" class="btn btn-primary" style="visibility:hidden"><span class="glyphicon glyphicon-repeat"></span></button>
 
 
-<a href="#" id="export" class="export" style="margin-left: 35%; visibility:hidden"><img src="static/pic/csvIcon.png" class="logoCsv" width="40" /></a>
+<a href="#" id="export" class="export" style="margin-left: 82%; margin-top:-5%; visibility:hidden"><img src="static/pic/csvIcon.png" class="logoCsv" width="40" /></a>
 <!-- <a href="#" class="export">Export Table data into Excel</a> -->
 
 <div name="out" id="out" style="display:none"><pre id="pr" style="display:none"><code id="output"></code></pre></div>
@@ -195,15 +195,15 @@ function exportTableToCSV($table, filename) {
   // });
   function drawHead(header) {
     console.log(header);
-    $("#myTable").append("<tr>");
     for(i=0; i < header.length;i++)
-      $("#myTable").append($("<th> " + header[i].toUpperCase() + " </th>"));
-    $("#myTable").append("</tr>");
-    $("#myTable th").css({"color": "grey", "padding-top": "12px", "padding-bottom": "12px", "padding-left": "12px", "padding-right": "12px"})
+        $("#myTable").prepend($("<th> " + header[i].toUpperCase() + " </th>"));
+    $("#myTable").prepend("</tr>");
+    $("#myTable th").css({"backround-color": "#777","color": "grey", "padding-top": "12px", "padding-bottom": "12px", "padding-left": "12px", "padding-right": "12px"});
   }
 
   function drawTable(data, header) {
-    console.log(typeof(data))
+    console.log(typeof(data));
+    // drawHead(header);
     for (var i = 0; i < data.length; i++) {
         drawRow(data[i], header);
         console.log('data ' + data[0].Academie + ' Length ' + data.length);
@@ -214,14 +214,15 @@ function drawRow(rowData, header) {
     var row = $("<tr />")
     //var head = String(header).split(",");
     console.log('HEREYEYEUEJ ' + typeof(header) + header + header.length);
-    $("#myTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
+    $("#myTable").prepend(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
     for(i = 0; i < header.length; i++)
-      row.append($("<td> " + rowData[header[i]] + " </td>"));
+      row.prepend($("<td> " + rowData[header[i]] + " </td>"));
     // row.append($("<td>" + rowData.Academie + "</td>"));
     // row.append($("<td>" + rowData.Departement + "</td>"));
     // row.append($("<td>" + rowData.Dernier + "</td>"));
     // row.append($("<td>" + rowData.score + "</td>"));
-    $("#myTable td").css({"padding": "10px"})
+     $("#myTable td").css({"padding": "7px","text-align": "center"});
+    // $("#myTable td").css({paddingLeft: header[i].style.width});
 }
 
   // function csvJSON(csv){
@@ -485,6 +486,8 @@ $("#submitbutton").on("click", function(){
             //drawTable(response);
             // document.getElementById("myT").hidden = !document.getElementById("myT").hidden;
             document.getElementById("export").style.visibility = "visible";
+            document.getElementById("submitbutton").style.visibility = "hidden";
+            document.getElementById("refreshbutton").style.visibility = "visible";
 
         },
         error: function(error) {
@@ -577,6 +580,7 @@ $("#submitbutton").on("click", function(){
         $("#submitbutton").removeAttr("disabled")
     });
     //$("#submitbutton").disabled = true;
+
     $("#submitbutton").prop('disabled', true);
     console.log('LOGLOGLOGLOGLOGLOG ' + $("#submitbutton").disabled);
 
