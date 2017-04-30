@@ -25,6 +25,7 @@ Then run the following :
   
 You can access the tool by going on your browser, localhost on port 5000/index : `localhost:5000/index`
 
+Examples of input files are in the `csv/` directory (configuration and data). `csv/lycee/` contains files for high schools in Aquitaine region for the academic year 2015. `csv/cafet/` contains files for Coffee makers.
 
 ## License
 
