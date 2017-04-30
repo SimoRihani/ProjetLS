@@ -195,10 +195,11 @@ function exportTableToCSV($table, filename) {
   // });
   function drawHead(header) {
     console.log(header);
-    for(i=0; i < header.length;i++)
-        $("#myTable").prepend($("<th> " + header[i].toUpperCase() + " </th>"));
+    var l = header.length;
+    for(i=0; i < l;i++)
+        $("#myTable").prepend($("<th> " + header[l-i-1].toUpperCase().replace(/_/g, " ").replace(/\s+/g,' ').trim() + " </th>"));
     $("#myTable").prepend("</tr>");
-    $("#myTable th").css({"backround-color": "#777","color": "grey", "padding-top": "15px", "padding-bottom": "15px", "padding-left": "12px", "padding-right": "12px"});
+    $("#myTable th").css({"background-color": "#f8f8f8","color": "grey", "text-align": "center", "padding-top": "15px", "padding-bottom": "15px", "padding-left": "12px", "padding-right": "12px"});
   }
 
   function drawTable(data, header) {
@@ -215,8 +216,9 @@ function drawRow(rowData, header) {
     //var head = String(header).split(",");
     console.log('HEREYEYEUEJ ' + typeof(header) + header + header.length);
     $("#myTable").prepend(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
-    for(i = 0; i < header.length; i++)
-      row.prepend($("<td> " + rowData[header[i]] + " </td>"));
+    var l = header.length;
+    for(i = 0; i < l; i++)
+      row.prepend($("<td> " + rowData[header[l-i-1]] + " </td>"));
     // row.append($("<td>" + rowData.Academie + "</td>"));
     // row.append($("<td>" + rowData.Departement + "</td>"));
     // row.append($("<td>" + rowData.Dernier + "</td>"));
